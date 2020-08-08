@@ -129,7 +129,7 @@ bool MagicQ::solveMagicTil()
 {
   int primeData[size];
   
-  //generateCombos(primeData, 0, primes.size() - 1, 0); 
+  generateCombos(primeData, 0, primes.size() - 1, 0); 
  
   if (exists == true)
     cout << "Magic square(s): " << endl;
