@@ -9,6 +9,7 @@
 using namespace std;
 
 
+// initializes queens board and magic square matrices based on user input
 MagicQ::MagicQ() 
 {   
   int n;
@@ -17,8 +18,11 @@ MagicQ::MagicQ()
     cout << "Please enter a desired matrix size (nxn): ";
     cin >> n;
     if (n < 1)
-    cout << "Invalid input... must be a positive number" << endl;
-  } while (n < 1);
+        cout << "Invalid input. Must be a positive number" << endl;
+    else if (n <= 3)
+        cout << "Queens solution does not exist. Must be larger than  3" << endl;
+    cout << endl;
+  } while (n <= 3);
   cout << endl;
     
   size = n;
@@ -50,6 +54,7 @@ MagicQ::MagicQ()
 }
 
 
+// deletes both queens board and magic square matrices
 MagicQ::~MagicQ()
 {
   for(int i = 0; i < size; ++i)
@@ -62,6 +67,7 @@ MagicQ::~MagicQ()
 }
 
 
+// prints queens board
 void MagicQ::printQBoard()
 {
   cout << "Queens board: " << endl;
@@ -76,8 +82,10 @@ void MagicQ::printQBoard()
 }
 
 
+// prints magic square
 void MagicQ::printMSquare()
 {   
+  cout << "Magic square " << solNum << ": " << endl;
   for(int i = 0; i < size; ++i)
   {
     cout << "|";
@@ -103,6 +111,7 @@ void MagicQ::printMSquare()
 }
 
 
+// solves for all queens solutions of size n
 bool MagicQ::solveQueensTil(int col)
 {   
   if (col == size) {
@@ -125,19 +134,18 @@ bool MagicQ::solveQueensTil(int col)
 }
 
 
+// solves for all magic squares for each queens solution
 bool MagicQ::solveMagicTil()
 {
   int primeData[size];
   
-  generateCombos(primeData, 0, primes.size() - 1, 0); 
- 
-  if (exists == true)
-    cout << "Magic square(s): " << endl;
- 
+  //generateCombos(primeData, 0, primes.size() - 1, 0); 
+
   return exists;
 }
 
 
+// checks if a matrix is a magic square
 bool MagicQ::checkMagic()
 {   
   int currRow = 0;
@@ -178,6 +186,7 @@ bool MagicQ::checkMagic()
 }
     
 
+// checks if numbers are prime
 bool MagicQ::isPrime(int num)
 {
  if (num > 1) {
@@ -192,6 +201,7 @@ bool MagicQ::isPrime(int num)
 }
     
 
+// checks if a spot in a nxn matrix is safe for a queen
 bool MagicQ::isSafeForQ(int row, int col)
 {
   int i , j;
@@ -211,6 +221,7 @@ bool MagicQ::isSafeForQ(int row, int col)
 }
 
     
+// generates a series of prime combinations for each queen solution
 void MagicQ::generateCombos(int primeData[], int start, int end, int idx)
 {   
   if(idx == size) {
@@ -225,6 +236,7 @@ void MagicQ::generateCombos(int primeData[], int start, int end, int idx)
 }
 
 
+// generates all permutations in primeData[]
 void MagicQ::findPrimePermutations(int primeData[])
 {   
   sort(primeData, primeData + size);
@@ -235,6 +247,7 @@ void MagicQ::findPrimePermutations(int primeData[])
 }
 
 
+// generates all permutations not in primeData[]
 void MagicQ::findPermutations(int primeData[])
 {
   int newSize = maxNum - size;
@@ -259,15 +272,18 @@ void MagicQ::findPermutations(int primeData[])
   do {
     fillMSquare(primeData, remNum);
     if(checkMagic() == true) {
+        solNum++;
         printMSquare();
         exists = true;
         return;
     }
+    solNum++;
     printMSquare();
   } while(next_permutation(remNum, remNum + (maxNum - size)));
 }
 
 
+// fills magic square matrix with prime and non prime numbers
 void MagicQ::fillMSquare(int primeData[], int remNum[])
 {
   int n = 0;
@@ -285,6 +301,7 @@ void MagicQ::fillMSquare(int primeData[], int remNum[])
 }
 
 
+// executes program
 void MagicQ::goMagicQ() 
 {
   if(solveQueensTil(0) == false) {

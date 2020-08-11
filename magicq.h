@@ -26,6 +26,7 @@ class MagicQ
         int size;
         int maxNum;
         int magicC;
+        int solNum = 0;
         bool exists = false;
         char** qBoard;
         int** mSquare;
