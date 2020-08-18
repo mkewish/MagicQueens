@@ -159,7 +159,8 @@ bool NewMagicQ::solveMagicTil()
     
   cout << endl;
   
-  
+  inputFile.close();
+    
   return exists;
 }
 
@@ -195,7 +196,7 @@ bool NewMagicQ::checkMagic()
 }
 
 
-// checks if the sum of the data set equals the magic constant
+// checks if the sum of the data set equals the magic constant, also checks if data set contains at least one prime number
 bool NewMagicQ::equalsMagicC(int data[])
 {
   int total = 0;

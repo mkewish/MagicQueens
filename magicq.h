@@ -1,30 +1,28 @@
-// File: newMagicq.h
+// File: magicq.h
 
-#ifndef NEWMAGICQ_H
-#define NEWMAGICQ_H
+#ifndef MAGIC_H
+#define MAGIC_H
 #include <vector>
 #include <fstream>
     
-class NewMagicQ
+class MagicQ
 {
     public:
-        NewMagicQ();
-        ~NewMagicQ();
+        MagicQ();
+        ~MagicQ();
         void printQBoard();
         void printMSquare();
         bool solveQueensTil(int col);
         bool solveMagicTil(); 
         bool checkMagic();
-        bool equalsMagicC(int data[]);
+        bool equalsMagicC(int data[])
         bool isPrime(int num);
         bool isSafeForQ(int row, int col);
-        void generateCombos(int primeData[], int start, int end, int idx, std::ofstream& file);
-        void printToFile(int data[], std::ofstream& file);
-        //void display(std::ifstream& file);
+        void generateCombos(int primeData[], int start, int end, int idx);
+        void printToFile(int data[], ofstream& file) 
         //void findPrimePermutations(int primeData[]);
         //void findPermutations(int primeData[]);
         void fillMSquare(int primeData[], int remNum[]);
-        //void fileOpen(fstream& file, char name[], char mode);
         void goMagicQ();
      
     private:
@@ -32,7 +30,6 @@ class NewMagicQ
         int maxNum;
         int magicC;
         int solNum;
-        //int num = 0;
         bool exists;
         char** qBoard;
         int** mSquare;
