@@ -7,13 +7,13 @@
 #include <fstream>
 #include <vector>
     
-#include "newMagicq.h"
+#include "magicq.h"
     
 using namespace std;
 
 
 // initializes queens board and magic square matrices based on user input
-NewMagicQ::NewMagicQ() 
+MagicQ::MagicQ() 
 {   
   ofstream outputFile("combos.txt");
   solNum = 0;  
@@ -66,7 +66,7 @@ NewMagicQ::NewMagicQ()
 
 
 // deletes both queens board and magic square matrices
-NewMagicQ::~NewMagicQ()
+MagicQ::~MagicQ()
 {
   for(int i = 0; i < size; ++i)
     delete[] mSquare[i];
@@ -79,7 +79,7 @@ NewMagicQ::~NewMagicQ()
 
 
 // prints queens board
-void NewMagicQ::printQBoard()
+void MagicQ::printQBoard()
 {
   cout << "Queens board: " << endl;
   for(int i = 0; i < size; ++i)
@@ -94,7 +94,7 @@ void NewMagicQ::printQBoard()
 
 
 // prints magic square, * and + next to primes depending on their placements
-void NewMagicQ::printMSquare()
+void MagicQ::printMSquare()
 {   
   cout << "Magic square " << solNum << ": " << endl;
   for(int i = 0; i < size; ++i)
@@ -123,7 +123,7 @@ void NewMagicQ::printMSquare()
 
 
 // solves for all queens solutions of size n and executes search for magic squares
-bool NewMagicQ::solveQueensTil(int col)
+bool MagicQ::solveQueensTil(int col)
 {   
   if (col == size) {
     printQBoard();
@@ -146,7 +146,7 @@ bool NewMagicQ::solveQueensTil(int col)
 
 
 // solves for all magic squares for each queens solution
-bool NewMagicQ::solveMagicTil()
+bool MagicQ::solveMagicTil()
 {
   ifstream inputFile("combos.txt");
    
@@ -166,7 +166,7 @@ bool NewMagicQ::solveMagicTil()
 
 
 // checks if a matrix is a magic square, equalsMagicC() already checks rows
-bool NewMagicQ::checkMagic()
+bool MagicQ::checkMagic()
 {    
   int currCol = 0;
     
@@ -197,7 +197,7 @@ bool NewMagicQ::checkMagic()
 
 
 // checks if the sum of the data set equals the magic constant, also checks if data set contains at least one prime number
-bool NewMagicQ::equalsMagicC(int data[])
+bool MagicQ::equalsMagicC(int data[])
 {
   int total = 0;
   bool flag = false;
@@ -216,7 +216,7 @@ bool NewMagicQ::equalsMagicC(int data[])
     
 
 // checks if number is prime
-bool NewMagicQ::isPrime(int num)
+bool MagicQ::isPrime(int num)
 {
   if (num > 1) {
     for(int i = 2; i <= num / 2; ++i) {
@@ -230,7 +230,7 @@ bool NewMagicQ::isPrime(int num)
    
 
 // checks if a spot in a nxn matrix is safe for a queen
-bool NewMagicQ::isSafeForQ(int row, int col)
+bool MagicQ::isSafeForQ(int row, int col)
 {
   int i , j;
   for(i = 0; i < col; i++)
@@ -250,7 +250,7 @@ bool NewMagicQ::isSafeForQ(int row, int col)
 
     
 // generates a series of prime combinations for each queen solution
-void NewMagicQ::generateCombos(int data[], int start, int end, int idx, ofstream& file)
+void MagicQ::generateCombos(int data[], int start, int end, int idx, ofstream& file)
 {   
   if(idx == size) {
       if(equalsMagicC(data) == true) {
@@ -267,7 +267,7 @@ void NewMagicQ::generateCombos(int data[], int start, int end, int idx, ofstream
 
 
 // displays the contents in an array
-void NewMagicQ::printToFile(int data[], ofstream& file) 
+void MagicQ::printToFile(int data[], ofstream& file) 
 { 
     for (int i = 0; i < size; i++) { 
         file << data[i] << "  "; 
@@ -324,7 +324,7 @@ void NewMagicQ::printToFile(int data[], ofstream& file)
 */
 
 // fills magic square matrix with prime and non prime numbers
-void NewMagicQ::fillMSquare(int primeData[], int remNum[])
+void MagicQ::fillMSquare(int primeData[], int remNum[])
 {
   int n = 0;
     
@@ -358,7 +358,7 @@ void NewMagicQ::fillMSquare(int primeData[], int remNum[])
 
 
 // executes program
-void NewMagicQ::goMagicQ() 
+void MagicQ::goMagicQ() 
 {
   if(solveQueensTil(0) == false) {
       cout << "Queens solution does not exist..." << endl;

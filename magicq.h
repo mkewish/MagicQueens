@@ -15,11 +15,11 @@ class MagicQ
         bool solveQueensTil(int col);
         bool solveMagicTil(); 
         bool checkMagic();
-        bool equalsMagicC(int data[])
+        bool equalsMagicC(int data[]);
         bool isPrime(int num);
         bool isSafeForQ(int row, int col);
-        void generateCombos(int primeData[], int start, int end, int idx);
-        void printToFile(int data[], ofstream& file) 
+        void generateCombos(int primeData[], int start, int end, int idx, std::ofstream& file);
+        void printToFile(int data[], std::ofstream& file); 
         //void findPrimePermutations(int primeData[]);
         //void findPermutations(int primeData[]);
         void fillMSquare(int primeData[], int remNum[]);

@@ -1,16 +1,16 @@
-// File: newMagicqTst.cpp
+// File: magicqTst.cpp
 
 #include <iostream>
 #include <fstream>
-#include "newMagicq.h"
+#include "magicq.h"
 
 using namespace std;
 
 int main()
 {
-  NewMagicQ* M = new NewMagicQ();
+  MagicQ* M = new MagicQ();
   M -> goMagicQ();
-  M -> ~NewMagicQ();
+  M -> ~MagicQ();
   
   return 0;
 }
