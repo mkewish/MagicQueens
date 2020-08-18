@@ -1,5 +1,5 @@
-// File: newMagicq.cpp
-// Compile: g++ newMagicqTst.cpp newMagicq.cpp -o magicq
+// File: magicq.cpp
+// Compile: g++ magicqTst.cpp magicq.cpp -o magicq
 // Execute: ./magicq
 
 #include <iostream>
