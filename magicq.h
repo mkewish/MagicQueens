@@ -4,6 +4,7 @@
 #define MAGIC_H
 #include <vector>
 #include <fstream>
+#include <string>
     
 class MagicQ
 {
@@ -18,11 +19,11 @@ class MagicQ
         bool equalsMagicC(int data[]);
         bool isPrime(int num);
         bool isSafeForQ(int row, int col);
-        void generateCombos(int primeData[], int start, int end, int idx, std::ofstream& file);
-        void printToFile(int data[], std::ofstream& file); 
-        //void findPrimePermutations(int primeData[]);
-        //void findPermutations(int primeData[]);
+        void generateCombos(int primeData[], int start, int end, int idx, std::fstream& file);
+        void printToFile(int data[], std::fstream& file); 
+        void findPermutations(int data[], std::fstream& file);
         void fillMSquare(int primeData[], int remNum[]);
+        void fileOpen(std::fstream& file, std::string name, char mode);
         void goMagicQ();
      
     private:
@@ -30,11 +31,9 @@ class MagicQ
         int maxNum;
         int magicC;
         int solNum;
-        bool exists;
         char** qBoard;
         int** mSquare;
         std::vector <int> range;
-        std::vector <int> combos;
 
 };
 

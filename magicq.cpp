@@ -6,6 +6,7 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include <vector>
+#include <string>
     
 #include "magicq.h"
     
@@ -15,9 +16,8 @@ using namespace std;
 // initializes queens board and magic square matrices based on user input
 MagicQ::MagicQ() 
 {   
-  ofstream outputFile("combos.txt");
+  fstream outputFile;
   solNum = 0;  
-  exists = false;
     
   int n;
     
@@ -57,6 +57,7 @@ MagicQ::MagicQ()
   }
     
   int data[size];
+  fileOpen(outputFile, "combos.txt", 'w');
  
   cout << "Generating combinations...\n" << endl;
   generateCombos(data, 0, range.size() - 1, 0, outputFile);
@@ -75,6 +76,11 @@ MagicQ::~MagicQ()
   for(int i = 0; i < size; ++i)
     delete[] qBoard[i];
   delete[] qBoard;  
+    
+  size = 0;
+  maxNum = 0;
+  magicC = 0;
+  solNum = 0;
 }
 
 
@@ -128,7 +134,7 @@ bool MagicQ::solveQueensTil(int col)
   if (col == size) {
     printQBoard();
     if (solveMagicTil() == false)
-      cout << "A relationship between the queen's solution and magic square does not exist...\n" << endl;
+      cout << "A relationship between the queen's solution and magic squares does not exist...\n" << endl;
     return true;
   }
  
@@ -148,17 +154,19 @@ bool MagicQ::solveQueensTil(int col)
 // solves for all magic squares for each queens solution
 bool MagicQ::solveMagicTil()
 {
-  ifstream inputFile("combos.txt");
-   
+  fstream inputFile, resultsFile;
+  bool exists = false;
   int data[size];
+    
+  fileOpen(inputFile, "combos.txt", 'r');
     
   /*for(int i = 0; i < size; ++i) {
       inputFile >> data[i];
       cout << data[i] << "  ";
   }*/
     
-  cout << endl;
-  
+  //TODO
+    
   inputFile.close();
     
   return exists;
@@ -250,78 +258,41 @@ bool MagicQ::isSafeForQ(int row, int col)
 
     
 // generates a series of prime combinations for each queen solution
-void MagicQ::generateCombos(int data[], int start, int end, int idx, ofstream& file)
+void MagicQ::generateCombos(int data[], int start, int end, int idx, fstream& file)
 {   
   if(idx == size) {
-      if(equalsMagicC(data) == true) {
-        printToFile(data, file);
-      }
+      if(equalsMagicC(data) == true)
+        findPermutations(data, file);
       return;
   }
      
   for (int i = start; i <= end && end - i + 1 >= size - idx; ++i) {
      data[idx] = range[i];
      generateCombos(data, i + 1, end, idx + 1, file);
- }
+  }
 }
 
 
-// displays the contents in an array
-void MagicQ::printToFile(int data[], ofstream& file) 
+// prints contents in an array to an output file
+void MagicQ::printToFile(int data[], fstream& file) 
 { 
-    for (int i = 0; i < size; i++) { 
-        file << data[i] << "  "; 
-    }
-    file << endl; 
+  for (int i = 0; i < size; i++) 
+    file << data[i] << "  "; 
+
+  file << endl; 
 }
 
 
 // generates all permutations in primeData[]
-/*void MagicQ::findPrimePermutations(int primeData[])
+void MagicQ::findPermutations(int data[], fstream& file)
 {   
-  sort(primeData, primeData + size);
+  sort(data, data + size);
    
   do {
-      findPermutations(primeData);
-  } while(next_permutation(primeData, primeData + size));
-}*/
-
-
-// generates all permutations not in primeData[]
-/*void MagicQ::findPermutations(int primeData[])
-{
-  int newSize = maxNum - size;
-  int remNum[newSize]; 
- 
-  int i = 1;
-  int j = 0;
-  int k = 0;
-    
-  while(i <= maxNum) {
-      if(primeData[j] == i) {
-        j++;
-      } else {
-        remNum[k] = i;
-        k++;
-      }
-      i++;
-  }
- 
-  sort(remNum, remNum + (maxNum - size));
-    
-  do {
-    fillMSquare(primeData, remNum);
-    if(checkMagic() == true) {
-        solNum++;
-        printMSquare();
-        exists = true;
-        return;
-    }
-    solNum++;
-    printMSquare();
-  } while(next_permutation(remNum, remNum + (maxNum - size)));
+      printToFile(data, file);
+  } while(next_permutation(data, data + size));
 }
-*/
+
 
 // fills magic square matrix with prime and non prime numbers
 void MagicQ::fillMSquare(int primeData[], int remNum[])
@@ -342,7 +313,7 @@ void MagicQ::fillMSquare(int primeData[], int remNum[])
 
 
 // creates a file containing all combinations
-/*void NewMagicQ::fileOpen(fstream& file, char name[], char mode)
+void MagicQ::fileOpen(fstream& file, string name, char mode)
 {
   if(mode == 'r')
     file.open(name, ios::in);
@@ -354,7 +325,7 @@ void MagicQ::fillMSquare(int primeData[], int remNum[])
     cout << "Error opening " << name << " file..." << endl;
     exit(EXIT_FAILURE);
   }
-}*/
+}
 
 
 // executes program
@@ -376,7 +347,6 @@ void MagicQ::goMagicQ()
     cout << "* = queens location (prime number)" << endl;
     cout << "+ = prime number" << endl;
     cout << endl;
-    //cout << "Number of combos: " << num << endl;
   //}
     
   return;       
