@@ -5,7 +5,7 @@ This program creates magic squares based on queens solutions of order four and a
 
 ## To compile
 ```
-g++ magicq.cpp magicqTst.cpp -o magicq
+g++ magicqTst.cpp magicq.cpp -o magicq
 ```
 
 ## To execute
